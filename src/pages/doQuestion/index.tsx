@@ -4,6 +4,7 @@ import GlobalFooter from '../../components'
 import questions from '../../data/questions.json'
 import './index.scss'
 import {useEffect, useState} from "react";
+import Taro from "@tarojs/taro";
 
 /**
  * 答题
@@ -30,9 +31,8 @@ export default () => {
 
   return (
     <View className='doQuestionPage'>
-        {JSON.stringify(answerList)}
       <View className='at-article__h2 title'>
-          {current}. {currentQuestion.title}
+        {current}. {currentQuestion.title}
       </View>
       <View className='options-wrapper'>
         <AtRadio options={questionOptions} value={currentAnswer} onClick={(value) => {
@@ -44,7 +44,9 @@ export default () => {
       {
         current == questions.length && (
           <AtButton className='controlBtn' type='primary' circle  disabled={!currentAnswer} onClick={() => {
-            // TODO: 跳转到结果页面
+              Taro.navigateTo({
+                url: '/pages/result/index'
+              })
             }}
           >查看结果</AtButton>
         )
